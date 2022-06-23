@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 const Sidebar = () => {
   const wapper = classNames(
-    'h-screen px-4 pt-8 pb-4 bg-lime-100 flex justify-between flex-col w-80',
+    'h-screen px-4 pt-8 pb-4 bg-neutral-800 flex justify-between flex-col w-80 text-white',
   )
 
   return (
