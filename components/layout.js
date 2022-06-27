@@ -9,7 +9,7 @@ export default function Layout({ children }) {
 
   return (
     <div className="h-screen flex flex-row justify-start">
-      <Sidebar taskLists={todoContext.taskLists}></Sidebar>
+      <Sidebar taskLists={todoContext?.taskLists}></Sidebar>
       <div className="bg-slate-700 flex-1">
         <Content></Content>
       </div>
@@ -23,7 +23,7 @@ const dummyTaskList = [
     id: 1,
     name: 'TaskList 1',
     count: 2,
-    task: [
+    tasks: [
       {
         name: 'task 1-1',
         isCompleted: false,
@@ -38,7 +38,7 @@ const dummyTaskList = [
     id: 2,
     name: 'TaskList 2',
     count: 1,
-    task: [
+    tasks: [
       {
         name: 'task 2-1',
         isCompleted: false,
