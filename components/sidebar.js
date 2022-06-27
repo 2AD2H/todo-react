@@ -1,10 +1,13 @@
 import classNames from 'classnames'
 import Image from 'next/image'
+import TaskListItem from './taskListItem'
 
-const Sidebar = () => {
+const Sidebar = (props) => {
   const wapper = classNames(
     'h-screen px-4 pt-8 pb-4 bg-neutral-800 flex justify-between flex-col w-80 text-white',
   )
+
+  console.log(props)
 
   return (
     <div className={wapper}>
@@ -38,7 +41,7 @@ const Sidebar = () => {
             </button>
           </div>
         </div>
-        <div className="rounded-md flex justify-between items-center w-60 hover:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 px-2 py-2">
+        {/* <div className="rounded-md flex justify-between items-center w-60 hover:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 px-2 py-2">
           <div className="flex gap-4">
             <div>🤡</div>
             <div>My Day</div>
@@ -73,8 +76,13 @@ const Sidebar = () => {
           <div className="rounded-full bg-neutral-500 flex justify-center items-center px-3 py-1 text-sm">
             5
           </div>
-        </div>
+        </div> */}
         <hr className="border-neutral-600 w-60"></hr>
+        {props.taskLists.map((taskList) => (
+          <div key={taskList.id}>
+            <TaskListItem taskList={taskList}></TaskListItem>
+          </div>
+        ))}
       </div>
     </div>
   )
