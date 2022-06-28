@@ -26,10 +26,10 @@ const dummyTaskList = [
     tasks: [
       {
         name: 'task 1-1',
-        isCompleted: false,
+        isCompleted: true,
       },
       {
-        name: 'task 2-1',
+        name: 'task 1-2',
         isCompleted: false,
       },
     ],
@@ -41,7 +41,26 @@ const dummyTaskList = [
     tasks: [
       {
         name: 'task 2-1',
+        isCompleted: true,
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: 'TaskList 3',
+    count: 3,
+    tasks: [
+      {
+        name: 'task 3-1',
+        isCompleted: true,
+      },
+      {
+        name: 'task 3-2',
         isCompleted: false,
+      },
+      {
+        name: 'task 3-3',
+        isCompleted: true,
       },
     ],
   },

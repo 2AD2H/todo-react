@@ -1,11 +1,12 @@
-import { useTodoContext } from './contexts/todoContext'
+import { useTodoContext } from "./contexts/todoContext";
 
 const TaskListItem = ({ taskList }) => {
-  const todoContext = useTodoContext()
+  const todoContext = useTodoContext();
 
   const OnClickHandleOnClick = () => {
-    todoContext?.setTasks(taskList.tasks)
-  }
+    todoContext?.setTasks(taskList.tasks);
+    todoContext?.setTaskList(taskList);
+  };
 
   return (
     <div
@@ -20,6 +21,6 @@ const TaskListItem = ({ taskList }) => {
         {taskList.count}
       </div>
     </div>
-  )
-}
-export default TaskListItem
+  );
+};
+export default TaskListItem;

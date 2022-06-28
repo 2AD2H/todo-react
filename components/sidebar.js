@@ -6,9 +6,6 @@ const Sidebar = (props) => {
   const wapper = classNames(
     'h-screen px-4 pt-8 pb-4 bg-neutral-800 flex justify-between flex-col w-80 text-white',
   )
-
-  console.log(props)
-
   return (
     <div className={wapper}>
       <div className="flex flex-col space-y-4 justify-center items-center">
