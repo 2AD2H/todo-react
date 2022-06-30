@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState, useMemo } from "react";
 import { getTaskList, getTaskLists, getTasks } from "../../lib/api";
-import { dummyTaskList } from "../layout";
 
 export const TodoContext = createContext();
 
