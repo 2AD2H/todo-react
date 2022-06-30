@@ -7,7 +7,7 @@ const Content = (props) => {
   const todoContext = useTodoContext();
   const [complete, setComplete] = useState(true);
 
-  const wrapperClasses = classNames("", {
+  const wrapperClasses = classNames("flex flex-col gap-2", {
     ["hidden"]: complete,
     [""]: !complete,
   });
