@@ -5,11 +5,9 @@ import Sidebar from './sidebar'
 export default function Layout({ children }) {
   const todoContext = useTodoContext()
 
-  todoContext.setTasklists(dummyTaskList) // Todo: call api to get task list
-
   return (
     <div className="h-screen flex flex-row justify-start">
-      <Sidebar taskLists={todoContext?.taskLists}></Sidebar>
+      <Sidebar></Sidebar>
       <div className="bg-slate-700 flex-1">
         <Content></Content>
       </div>
@@ -18,7 +16,7 @@ export default function Layout({ children }) {
 }
 
 // dummy TaskLists
-const dummyTaskList = [
+export const dummyTaskList = [
   {
     id: 1,
     name: 'TaskList 1',

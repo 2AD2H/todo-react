@@ -1,29 +1,45 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState, useMemo } from "react";
+import { getTaskList, getTaskLists, getTasks } from "../../lib/api";
+import { dummyTaskList } from "../layout";
 
 export const TodoContext = createContext();
 
-const TodoContextResource = () => {
+export function TodoProvider({ children }) {
   const [taskLists, setTasklists] = useState([]); // get the task list in group;
   const [tasks, setTasks] = useState([]); // get task in the task list
   const [taskList, setTaskList] = useState({}); // get the task list
+  const [taskListId, setTaskListId] = useState();
 
+  useEffect(() => {
+    (async () => {
+      setTasklists(await getTaskLists());
+    })();
+  }, []);
 
-  return {
-    taskLists,
-    setTasklists,
-    tasks,
-    setTasks,
-    taskList,
-    setTaskList,
-  };
-};
+  useEffect(() => {
+    (async () => {
+      setTaskList(await getTaskList(taskListId));
+    })();
+    (async () => {
+      setTasks(await getTasks(taskListId));
+    })();
+  }, [taskListId]);
 
-export function TodoProvider({ children }) {
-  return (
-    <TodoContext.Provider value={TodoContextResource()}>
-      {children}
-    </TodoContext.Provider>
+  const value = useMemo(
+    () => ({
+      taskLists,
+      setTasklists,
+      tasks,
+      setTasks,
+      taskList,
+      setTaskList,
+      taskListId,
+      setTaskListId,
+    }),
+    [taskList, taskListId, taskLists, tasks]
   );
+
+  return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>;
 }
 
 export const useTodoContext = () => useContext(TodoContext);

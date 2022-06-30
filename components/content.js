@@ -16,10 +16,10 @@ const Content = (props) => {
     setComplete(!complete);
   };
 
-  const nonCompletedTasks = todoContext?.tasks.filter(
-    (task) => !task.isCompleted
-  );
-  const completedTasks = todoContext?.tasks.filter((task) => task.isCompleted);
+  const nonCompletedTasks =
+    todoContext?.tasks?.filter((task) => !task.isCompleted) ?? [];
+  const completedTasks =
+    todoContext?.tasks?.filter((task) => task.isCompleted) ?? [];
 
   const countCompletedTasks = completedTasks.length;
 

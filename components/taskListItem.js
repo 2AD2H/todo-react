@@ -1,11 +1,12 @@
 import { useTodoContext } from "./contexts/todoContext";
 
 const TaskListItem = ({ taskList }) => {
-  const todoContext = useTodoContext();
+  const { setTaskListId } = useTodoContext();
 
   const OnClickHandleOnClick = () => {
-    todoContext?.setTasks(taskList.tasks);
-    todoContext?.setTaskList(taskList);
+    setTaskListId(taskList.id)
+    // todoContext?.setTasks(taskList.tasks);
+    // todoContext?.setTaskList(taskList);
   };
 
   return (

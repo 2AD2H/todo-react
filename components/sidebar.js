@@ -1,11 +1,14 @@
-import classNames from 'classnames'
-import Image from 'next/image'
-import TaskListItem from './taskListItem'
+import classNames from "classnames";
+import Image from "next/image";
+import { useTodoContext } from "./contexts/todoContext";
+import TaskListItem from "./taskListItem";
 
 const Sidebar = (props) => {
+  const { taskLists } = useTodoContext();
+
   const wapper = classNames(
-    'h-screen px-4 pt-8 pb-4 bg-neutral-800 flex justify-between flex-col w-80 text-white',
-  )
+    "h-screen px-4 pt-8 pb-4 bg-neutral-800 flex justify-between flex-col w-80 text-white"
+  );
   return (
     <div className={wapper}>
       <div className="flex flex-col space-y-4 justify-center items-center">
@@ -75,13 +78,13 @@ const Sidebar = (props) => {
           </div>
         </div> */}
         <hr className="border-neutral-600 w-60"></hr>
-        {props.taskLists.map((taskList) => (
+        {taskLists?.map((taskList) => (
           <div key={taskList.id}>
             <TaskListItem taskList={taskList}></TaskListItem>
           </div>
         ))}
       </div>
     </div>
-  )
-}
-export default Sidebar
+  );
+};
+export default Sidebar;
