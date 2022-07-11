@@ -26,13 +26,12 @@ const Content = (props) => {
   return (
     <div className="text-white px-8 py-8">
       <p className="text-5xl">{todoContext?.taskList?.name}</p>
-      <div className="h-full w-full flex flex-col gap-2 pt-16">
+      <div className="w-full flex flex-col gap-2 pt-16">
         {nonCompletedTasks?.map((task) => (
           <div key={task.name}>
             <Task task={task}></Task>
           </div>
         ))}
-
         <div className="">
           <button
             className="flex gap-2 bg-slate-500 rounded-md px-1 py-1 self-start"
@@ -50,9 +49,18 @@ const Content = (props) => {
             </div>
           ))}
         </div>
-      </div>
-      <div>
-        
+        <div className="">
+          <div className="absolute bottom-0 left-80 right-0 px-10 py-10">
+            <div className="w-full bg-neutral-700 h-16 flex items-center rounded-sm px-3">
+              <span className="px-3">⏩</span>
+              <input
+                type="text"
+                className="flex-1 bg-neutral-700 border-0 focus:ring-0 text-white p-0"
+                placeholder="Add your Task here"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
