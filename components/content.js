@@ -24,7 +24,7 @@ const Content = (props) => {
   const countCompletedTasks = completedTasks.length;
 
   return (
-    <div className="text-white px-8 py-8">
+    <div className="text-white px-8 py-8 h-full relative">
       <p className="text-5xl">{todoContext?.taskList?.name}</p>
       <div className="w-full flex flex-col gap-2 pt-16">
         {nonCompletedTasks?.map((task) => (
@@ -50,7 +50,7 @@ const Content = (props) => {
           ))}
         </div>
         <div className="">
-          <div className="absolute bottom-0 left-80 right-0 px-10 py-10">
+          <div className="absolute bottom-0 left-0 right-0 px-10 py-10">
             <div className="w-full bg-neutral-700 h-16 flex items-center rounded-sm px-3">
               <span className="px-3">⏩</span>
               <input
