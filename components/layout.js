@@ -1,11 +1,10 @@
 import Content from './content'
-import { useTodoContext } from './contexts/todoContext'
+import { TodoContext, useTodoContext } from './contexts/todoContext'
 import Sidebar from './sidebar'
 import TaskPopupDetail from './taskPopupDetail'
 
 export default function Layout({ children }) {
-  const todoContext = useTodoContext()
-
+  const { taskId, task } = useTodoContext()
   return (
     <div className="h-screen flex flex-row justify-start">
       <Sidebar></Sidebar>
@@ -13,7 +12,7 @@ export default function Layout({ children }) {
         <div className="flex-1">
           <Content></Content>
         </div>
-        <TaskPopupDetail></TaskPopupDetail>
+        {taskId ? <TaskPopupDetail task={task}></TaskPopupDetail> : <></>}
       </div>
     </div>
   )
@@ -27,10 +26,12 @@ export const dummyTaskList = [
     count: 2,
     tasks: [
       {
+        id: 1,
         name: 'task 1-1',
         isCompleted: true,
       },
       {
+        id: 2,
         name: 'task 1-2',
         isCompleted: false,
       },
@@ -42,6 +43,7 @@ export const dummyTaskList = [
     count: 1,
     tasks: [
       {
+        id: 1,
         name: 'task 2-1',
         isCompleted: true,
       },
@@ -53,14 +55,17 @@ export const dummyTaskList = [
     count: 3,
     tasks: [
       {
+        id: 1,
         name: 'task 3-1',
         isCompleted: true,
       },
       {
+        id: 2,
         name: 'task 3-2',
         isCompleted: false,
       },
       {
+        id: 3,
         name: 'task 3-3',
         isCompleted: true,
       },

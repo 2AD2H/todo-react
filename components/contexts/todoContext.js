@@ -8,7 +8,8 @@ export function TodoProvider({ children }) {
   const [tasks, setTasks] = useState([]) // get task in the task list
   const [taskList, setTaskList] = useState({}) // get the task list
   const [taskListId, setTaskListId] = useState()
-  const [task, setTask] = useState({})
+  const [taskId, setTaskId] = useState()
+  const task = tasks.find((task) => task.id === taskId)
 
   useEffect(() => {
     ;(async () => {
@@ -25,8 +26,6 @@ export function TodoProvider({ children }) {
     })()
   }, [taskListId])
 
-  useEffect(() => {}, [task])
-
   const value = useMemo(
     () => ({
       taskLists,
@@ -37,8 +36,11 @@ export function TodoProvider({ children }) {
       setTaskList,
       taskListId,
       setTaskListId,
+      taskId,
+      setTaskId,
+      task,
     }),
-    [taskList, taskListId, taskLists, tasks],
+    [task, taskId, taskList, taskListId, taskLists, tasks],
   )
 
   return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>

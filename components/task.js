@@ -1,12 +1,16 @@
 import Image from 'next/image'
+import { useTodoContext } from './contexts/todoContext'
 
 const Task = ({ task }) => {
-  const OnHandleClickTask = (event) => {
-    console.log(event)
+  const { setTaskId,taskId } = useTodoContext()
 
+  const OnHandleClickTask = (event) => {
     if (event.target === HTMLInputElement || event.target === HTMLImageElement)
       return
-      // set task to display
+    // set task to display
+    else {
+      setTaskId(task.id)
+    }
   }
 
   return (
