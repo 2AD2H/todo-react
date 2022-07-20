@@ -1,17 +1,18 @@
-import Image from 'next/image'
-import { useTodoContext } from './contexts/todoContext'
+import Image from "next/image";
+import { useTodoContext } from "./contexts/todoContext";
 
 const Task = ({ task }) => {
-  const { setTaskId,taskId } = useTodoContext()
+  const { setTaskId, taskId } = useTodoContext();
 
   const OnHandleClickTask = (event) => {
     if (event.target === HTMLInputElement || event.target === HTMLImageElement)
-      return
+      return;
     // set task to display
     else {
-      setTaskId(task.id)
+      console.log(task.id);
+      setTaskId(task.id);
     }
-  }
+  };
 
   return (
     <div
@@ -27,9 +28,12 @@ const Task = ({ task }) => {
         <p>{task.name}</p>
       </div>
       <div className="flex items-center justify-center">
-        <Image src="/star.svg" height={22} width={22}></Image>
+        {/* <Image src="/star.svg" height={22} width={22}></Image> */}
+        <div className="h-[22px] w-[22px]">
+          <img src="/star.svg" className=""></img>
+        </div>
       </div>
     </div>
-  )
-}
-export default Task
+  );
+};
+export default Task;

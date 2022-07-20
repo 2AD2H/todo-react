@@ -2,6 +2,7 @@ import { useTodoContext } from "./contexts/todoContext";
 import Task from "./task";
 import { useState } from "react";
 import classNames from "classnames";
+import { addTask } from "../lib/api";
 
 const Content = (props) => {
   const todoContext = useTodoContext();
@@ -14,6 +15,26 @@ const Content = (props) => {
 
   const OnClickHandleShowComplete = () => {
     setComplete(!complete);
+  };
+
+  const OnClickHandlerInput = (event) => {
+    if (
+      event.code !== "Enter" ||
+      event.currentTarget.value === "" ||
+      !todoContext?.taskList?.id
+    ) {
+      return;
+    } else {
+      const newTask = {
+        id: 1,
+        name: event.currentTarget.value,
+        isCompleted: false,
+      };
+      addTask(newTask, todoContext?.taskList?.id);
+
+      todoContext?.setTasks([...todoContext?.tasks, newTask]);
+      event.currentTarget.value = "";
+    }
   };
 
   const nonCompletedTasks =
@@ -57,6 +78,7 @@ const Content = (props) => {
                 type="text"
                 className="flex-1 bg-neutral-700 border-0 focus:ring-0 text-white p-0"
                 placeholder="Add your Task here"
+                onKeyUp={OnClickHandlerInput}
               />
             </div>
           </div>
