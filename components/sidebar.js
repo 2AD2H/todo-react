@@ -1,16 +1,20 @@
-import classNames from 'classnames'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useTodoContext } from './contexts/todoContext'
-import TaskListItem from './taskListItem'
+import classNames from "classnames";
+import Image from "next/image";
+import Link from "next/link";
+import { addTaskList } from "../lib/api";
+import { useTodoContext } from "./contexts/todoContext";
+import TaskListItem from "./taskListItem";
 
 const Sidebar = (props) => {
-  const { taskLists } = useTodoContext()
-  const { user } = props
+  const ctx = useTodoContext();
+  const { taskLists } = ctx;
+  const { user } = props;
   const wapper = classNames(
-    'h-screen px-4 pt-8 pb-4 bg-neutral-800 flex justify-between flex-col w-80 text-white',
-  )
-  console.log(user?.token)
+    "h-screen px-4 pt-8 pb-4 bg-neutral-800 flex justify-between flex-col w-80 text-white"
+  );
+  const OnClickHandleAddTaskList = async () => {
+    await addTaskList(ctx);
+  };
   return (
     <div className={wapper}>
       <div className="flex flex-col space-y-4 justify-center items-center">
@@ -94,13 +98,18 @@ const Sidebar = (props) => {
           </div>
         </div> */}
         <hr className="border-neutral-600 w-60"></hr>
-        {taskLists?.map((taskList) => (
-          <div key={taskList.id}>
-            <TaskListItem taskList={taskList}></TaskListItem>
-          </div>
-        ))}
+        <div className="overflow-y-auto">
+          {taskLists?.map((taskList) => (
+            <div key={taskList.id}>
+              <TaskListItem taskList={taskList}></TaskListItem>
+            </div>
+          ))}
+        </div>
+
+        <hr className="border-neutral-600 w-60"></hr>
+        <button onClick={OnClickHandleAddTaskList}>Add Task List</button>
       </div>
     </div>
-  )
-}
-export default Sidebar
+  );
+};
+export default Sidebar;

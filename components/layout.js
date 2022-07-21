@@ -11,12 +11,11 @@ export default function Layout({ children }) {
   const { user, error, isLoading } = useUser()
 
   useEffect(() => {
-    if (isLoading) return
-    if (error) return
-    ;(async () => {
+    if (isLoading || error || !user) return;
+    (async () => {
       setTasklists(await getTaskLists())
     })()
-  }, [user])
+  }, [error, isLoading, setTasklists, user])
 
   return (
     <div className="h-screen flex flex-row justify-start">
