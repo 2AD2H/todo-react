@@ -2,18 +2,33 @@ import Content from './content'
 import { TodoContext, useTodoContext } from './contexts/todoContext'
 import Sidebar from './sidebar'
 import TaskPopupDetail from './taskPopupDetail'
+import { useUser } from '@auth0/nextjs-auth0'
+import { useEffect } from 'react'
+import { getTaskLists } from '../lib/api'
 
 export default function Layout({ children }) {
-  const { taskId, task } = useTodoContext()
+  const { taskId, task, setTasklists } = useTodoContext()
+  const { user, error, isLoading } = useUser()
+
+  useEffect(() => {
+    if (isLoading) return
+    if (error) return
+    ;(async () => {
+      setTasklists(await getTaskLists())
+    })()
+  }, [user])
+
   return (
     <div className="h-screen flex flex-row justify-start">
-      <Sidebar></Sidebar>
-      <div className="bg-slate-700 flex-1 flex relative">
-        <div className="flex-1">
-          <Content></Content>
+      <Sidebar user={user ? user : null}></Sidebar>
+      {user && (
+        <div className="bg-slate-700 flex-1 flex relative">
+          <div className="flex-1">
+            <Content></Content>
+          </div>
+          {taskId ? <TaskPopupDetail task={task}></TaskPopupDetail> : <></>}
         </div>
-        {taskId ? <TaskPopupDetail task={task}></TaskPopupDetail> : <></>}
-      </div>
+      )}
     </div>
   )
 }

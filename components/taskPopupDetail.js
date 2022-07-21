@@ -32,7 +32,10 @@ const TaskPopupDetail = (props) => {
               value={props?.task?.name}
             ></input>
             <div className="flex items-center">
-              <Image src="/star.svg" height={22} width={22}></Image>
+              {/* <Image src="/star.svg" height={22} width={22}></Image> */}
+              <div className="h-[22px] w-[22px]">
+                <img src="/star.svg" className=""></img>
+              </div>
             </div>
           </div>
           {/* button to add task */}

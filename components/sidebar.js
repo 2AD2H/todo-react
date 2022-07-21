@@ -1,32 +1,48 @@
-import classNames from "classnames";
-import Image from "next/image";
-import { useTodoContext } from "./contexts/todoContext";
-import TaskListItem from "./taskListItem";
+import classNames from 'classnames'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useTodoContext } from './contexts/todoContext'
+import TaskListItem from './taskListItem'
 
 const Sidebar = (props) => {
-  const { taskLists } = useTodoContext();
-
+  const { taskLists } = useTodoContext()
+  const { user } = props
   const wapper = classNames(
-    "h-screen px-4 pt-8 pb-4 bg-neutral-800 flex justify-between flex-col w-80 text-white"
-  );
+    'h-screen px-4 pt-8 pb-4 bg-neutral-800 flex justify-between flex-col w-80 text-white',
+  )
+  console.log(user?.token)
   return (
     <div className={wapper}>
       <div className="flex flex-col space-y-4 justify-center items-center">
-        <div className="basis-20 flex py-2 space-x-4">
-          <div className="">
-            <div className="border-2 rounded-full p-3 w-16 h-16">
-              <Image src="/avatar.svg" height={45} width={45}></Image>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center">
-            <div>
-              <p>an tran</p>
-            </div>
-            <div>
-              <p>aloalo@gmail.com</p>
-            </div>
-          </div>
+        <div className="flex gap-5">
+          {user ? (
+            <Link href="/api/auth/logout">
+              <button>Logout</button>
+            </Link>
+          ) : (
+            <Link href="/api/auth/login">
+              <button>Login</button>
+            </Link>
+          )}
         </div>
+        {user && (
+          <div className="basis-20 flex py-2 space-x-4">
+            <div className="">
+              <div className="border-2 rounded-full p-3 w-16 h-16">
+                <Image src="/avatar.svg" height={45} width={45}></Image>
+              </div>
+            </div>
+            <div className="flex flex-col justify-center">
+              <div>
+                <p>{user?.name}</p>
+              </div>
+              <div>
+                <p>{user?.email}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Todo: fix search bar responsive (if needed) */}
         <div className="">
           <div className="pt-2 relative mx-auto text-gray-600">
@@ -85,6 +101,6 @@ const Sidebar = (props) => {
         ))}
       </div>
     </div>
-  );
-};
-export default Sidebar;
+  )
+}
+export default Sidebar

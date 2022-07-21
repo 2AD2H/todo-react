@@ -1,18 +1,18 @@
-import Image from "next/image";
-import { useTodoContext } from "./contexts/todoContext";
+import Image from 'next/image'
+import { useTodoContext } from './contexts/todoContext'
 
 const Task = ({ task }) => {
-  const { setTaskId, taskId } = useTodoContext();
+  const { setTaskId, taskId } = useTodoContext()
 
   const OnHandleClickTask = (event) => {
     if (event.target === HTMLInputElement || event.target === HTMLImageElement)
-      return;
+      return
     // set task to display
     else {
-      console.log(task.id);
-      setTaskId(task.id);
+      console.log(task.id)
+      setTaskId(task.id)
     }
-  };
+  }
 
   return (
     <div
@@ -24,6 +24,7 @@ const Task = ({ task }) => {
           type="checkbox"
           className="rounded-full"
           checked={task.isCompleted}
+          onChange={() => {}}
         ></input>
         <p>{task.name}</p>
       </div>
@@ -34,6 +35,6 @@ const Task = ({ task }) => {
         </div>
       </div>
     </div>
-  );
-};
-export default Task;
+  )
+}
+export default Task
