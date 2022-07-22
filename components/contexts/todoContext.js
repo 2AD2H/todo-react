@@ -11,17 +11,6 @@ export function TodoProvider({ children }) {
   const [taskId, setTaskId] = useState()
   const task = tasks.find((task) => task.id === taskId)
 
-  
-
-  useEffect(() => {
-    ;(async () => {
-      setTaskList(await getTaskList(taskListId))
-    })()
-    ;(async () => {
-      setTasks(await getTasks(taskListId))
-    })()
-  }, [taskListId])
-
   const value = useMemo(
     () => ({
       taskLists,

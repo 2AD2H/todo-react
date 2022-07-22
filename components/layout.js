@@ -4,18 +4,22 @@ import Sidebar from './sidebar'
 import TaskPopupDetail from './taskPopupDetail'
 import { useUser } from '@auth0/nextjs-auth0'
 import { useEffect } from 'react'
-import { getTaskLists } from '../lib/api'
+import { getTaskLists, getTasks } from '../lib/api'
 
 export default function Layout({ children }) {
-  const { taskId, task, setTasklists } = useTodoContext()
+  const ctx = useTodoContext()
+  const { taskId, task, setTasklists, setTasks } = useTodoContext()
   const { user, error, isLoading } = useUser()
 
   useEffect(() => {
-    if (isLoading || error || !user) return;
-    (async () => {
+    if (isLoading || error || !user) return
+    ;(async () => {
       setTasklists(await getTaskLists())
     })()
-  }, [error, isLoading, setTasklists, user])
+    ;(async () => {
+      setTasks(await getTasks())
+    })()
+  }, [error, isLoading, setTasklists, setTasks, user])
 
   return (
     <div className="h-screen flex flex-row justify-start">
