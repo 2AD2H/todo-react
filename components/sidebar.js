@@ -36,11 +36,11 @@ const Sidebar = (props) => {
         <div className="flex gap-5">
           {user ? (
             <Link href="/api/auth/logout">
-              <button>Logout</button>
+              <button className="bg-slate-500 p-3 rounded-md">Logout</button>
             </Link>
           ) : (
             <Link href="/api/auth/login">
-              <button>Login</button>
+              <button className="bg-slate-500 p-3 rounded-md">Login</button>
             </Link>
           )}
         </div>
