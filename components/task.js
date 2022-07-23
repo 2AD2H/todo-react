@@ -1,16 +1,41 @@
 import Image from "next/image";
+import { updateTask } from "../lib/api";
 import { useTodoContext } from "./contexts/todoContext";
+import classNames from "classnames";
 
 const Task = ({ task }) => {
-  const { setTaskId, taskId } = useTodoContext();
+  const ctx = useTodoContext();
+  const { setTaskId, taskId } = ctx;
+
+  const starCss = classNames("", {
+    ["invert"]: task?.isImportant,
+    ["invert-0"]: !task?.isImportant,
+  });
+
+  const lineThourgh = classNames("", {
+    ["line-through"]: task?.isCompleted,
+  });
 
   const OnHandleClickTask = (event) => {
-    if (event.target === HTMLInputElement || event.target === HTMLImageElement)
+    if (
+      event.target instanceof HTMLInputElement ||
+      event.target instanceof HTMLImageElement
+    )
       return;
     // set task to display
     else {
       setTaskId(task.id);
     }
+  };
+
+  const OnHandleClickCheckbox = async (event) => {
+    event.stopPropagation();
+    await updateTask({ id: task?.id, isCompleted: !task?.isCompleted }, ctx);
+  };
+
+  const handleToggerImportant = async (event) => {
+    event.stopPropagation();
+    await updateTask({ id: task?.id, isImportant: !task?.isImportant }, ctx);
   };
 
   return (
@@ -23,14 +48,16 @@ const Task = ({ task }) => {
           type="checkbox"
           className="rounded-full"
           checked={task.isCompleted}
-          onChange={() => {}}
+          onChange={OnHandleClickCheckbox}
         ></input>
-        <p>{task.name}</p>
+        <p className={lineThourgh}>{task.name}</p>
       </div>
       <div className="flex items-center justify-center">
         {/* <Image src="/star.svg" height={22} width={22}></Image> */}
         <div className="h-[22px] w-[22px]">
-          <img src="/star.svg" className=""></img>
+          <button onClick={handleToggerImportant}>
+            <img src="/star.svg" className={starCss}></img>
+          </button>
         </div>
       </div>
     </div>

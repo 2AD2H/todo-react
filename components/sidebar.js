@@ -1,20 +1,25 @@
-import classNames from 'classnames'
-import Image from 'next/image'
-import Link from 'next/link'
-import { addTaskList } from '../lib/api'
-import { useTodoContext } from './contexts/todoContext'
-import TaskListItem from './taskListItem'
+import classNames from "classnames";
+import Image from "next/image";
+import Link from "next/link";
+import { addTaskList, getTasks } from "../lib/api";
+import { useTodoContext } from "./contexts/todoContext";
+import TaskListItem from "./taskListItem";
 
 const Sidebar = (props) => {
-  const ctx = useTodoContext()
-  const { taskLists } = ctx
-  const { user } = props
+  const ctx = useTodoContext();
+  const { taskLists } = ctx;
+  const { user } = props;
   const wapper = classNames(
-    'h-screen px-4 pt-8 pb-4 bg-neutral-800 flex justify-between flex-col w-80 text-white',
-  )
+    "h-screen px-4 pt-8 pb-4 bg-neutral-800 flex justify-between flex-col w-80 text-white"
+  );
   const OnClickHandleAddTaskList = async () => {
-    await addTaskList(ctx)
-  }
+    await addTaskList(ctx);
+  };
+
+  const OnClickHandleOnClick = async () => {
+    ctx?.setTaskListId(null);
+    ctx?.setTasks(await getTasks());
+  };
   return (
     <div className={wapper}>
       <div className="flex flex-col space-y-4 justify-center items-center">
@@ -61,16 +66,19 @@ const Sidebar = (props) => {
             </button>
           </div>
         </div>
-        {/* <div className="rounded-md flex justify-between items-center w-60 hover:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 px-2 py-2">
+        <div
+          onClick={OnClickHandleOnClick}
+          className="rounded-md flex justify-between items-center w-60 hover:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 px-2 py-2"
+        >
           <div className="flex gap-4">
-            <div>🤡</div>
-            <div>My Day</div>
+            <div>🚓</div>
+            <div>Tasks</div>
           </div>
-          <div className="rounded-full bg-neutral-500 flex justify-center items-center px-3 py-1 text-sm">
-            5
-          </div>
+          {/* <div className="rounded-full bg-neutral-500 flex justify-center items-center px-3 py-1 text-sm">
+            {taskLists.length}
+          </div> */}
         </div>
-        <div className="rounded-md flex justify-between items-center w-60 hover:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 px-2 py-2">
+        {/* <div className="rounded-md flex justify-between items-center w-60 hover:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 px-2 py-2">
           <div className="flex gap-4">
             <div>🤡</div>
             <div>Important</div>
@@ -110,6 +118,6 @@ const Sidebar = (props) => {
         <button onClick={OnClickHandleAddTaskList}>Add Task List</button>
       </div>
     </div>
-  )
-}
-export default Sidebar
+  );
+};
+export default Sidebar;

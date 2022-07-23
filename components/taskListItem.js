@@ -1,12 +1,13 @@
-import { getTasks } from '../lib/api'
-import { useTodoContext } from './contexts/todoContext'
+import { getTasks } from "../lib/api";
+import { useTodoContext } from "./contexts/todoContext";
 
 const TaskListItem = ({ taskList }) => {
-  const { setTaskListId } = useTodoContext()
+  const ctx = useTodoContext();
 
   const OnClickHandleOnClick = async () => {
-    await getTasks(taskList.id)
-  }
+    ctx?.setTaskListId(taskList.id);
+    ctx?.setTasks(await getTasks(taskList.id));
+  };
 
   return (
     <div
@@ -18,9 +19,9 @@ const TaskListItem = ({ taskList }) => {
         <div>{taskList.name}</div>
       </div>
       <div className="rounded-full bg-neutral-500 flex justify-center items-center px-3 py-1 text-sm">
-        {taskList.count}
+        {taskList.taskCount}
       </div>
     </div>
-  )
-}
-export default TaskListItem
+  );
+};
+export default TaskListItem;
