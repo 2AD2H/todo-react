@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
-import { addTaskList, getTasks } from "../lib/api";
+import { addTaskList, getImportant, getMyDay, getTasks } from "../lib/api";
 import { useTodoContext } from "./contexts/todoContext";
 import TaskListItem from "./taskListItem";
 
@@ -16,13 +16,23 @@ const Sidebar = (props) => {
     await addTaskList(ctx);
   };
 
-  const OnClickHandleOnClick = async () => {
+  const OnClickHandleOnClickTask = async () => {
     ctx?.setTaskListId(null);
     ctx?.setTasks(await getTasks());
   };
+
+  const OnClickHandleOnClickImportant = async () => {
+    ctx?.setTaskListId(null);
+    ctx?.setTasks(await getImportant());
+  };
+
+  const OnClickHandleOnClickMyday = async () => {
+    ctx?.setTaskListId(null);
+    ctx?.setTasks(await getMyDay());
+  };
   return (
     <div className={wapper}>
-      <div className="flex flex-col space-y-4 justify-center items-center">
+      <div className="flex flex-col space-y-4 justify-center items-center overflow-y-auto">
         <div className="flex gap-5">
           {user ? (
             <Link href="/api/auth/logout">
@@ -67,7 +77,7 @@ const Sidebar = (props) => {
           </div>
         </div>
         <div
-          onClick={OnClickHandleOnClick}
+          onClick={OnClickHandleOnClickTask}
           className="rounded-md flex justify-between items-center w-60 hover:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 px-2 py-2"
         >
           <div className="flex gap-4">
@@ -78,25 +88,31 @@ const Sidebar = (props) => {
             {taskLists.length}
           </div> */}
         </div>
-        {/* <div className="rounded-md flex justify-between items-center w-60 hover:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 px-2 py-2">
+        <div
+          onClick={OnClickHandleOnClickImportant}
+          className="rounded-md flex justify-between items-center w-60 hover:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 px-2 py-2"
+        >
           <div className="flex gap-4">
-            <div>🤡</div>
+            <div>⭐</div>
             <div>Important</div>
           </div>
-          <div className="rounded-full bg-neutral-500 flex justify-center items-center px-3 py-1 text-sm">
+          {/* <div className="rounded-full bg-neutral-500 flex justify-center items-center px-3 py-1 text-sm">
             5
-          </div>
+          </div> */}
         </div>
-        <div className="rounded-md flex justify-between items-center w-60 hover:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 px-2 py-2">
+        <div
+          onClick={OnClickHandleOnClickMyday}
+          className="rounded-md flex justify-between items-center w-60 hover:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 px-2 py-2"
+        >
           <div className="flex gap-4">
-            <div>🤡</div>
-            <div>Planned</div>
+            <div>🧭</div>
+            <div>My Day</div>
           </div>
-          <div className="rounded-full bg-neutral-500 flex justify-center items-center px-3 py-1 text-sm">
+          {/* <div className="rounded-full bg-neutral-500 flex justify-center items-center px-3 py-1 text-sm">
             5
-          </div>
+          </div> */}
         </div>
-        <div className="rounded-md flex justify-between items-center w-60 hover:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 px-2 py-2">
+        {/* <div className="rounded-md flex justify-between items-center w-60 hover:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 px-2 py-2">
           <div className="flex gap-4">
             <div>🤡</div>
             <div>Tasks</div>
@@ -106,7 +122,7 @@ const Sidebar = (props) => {
           </div>
         </div> */}
         <hr className="border-neutral-600 w-60"></hr>
-        <div className="overflow-y-auto h-[500px]">
+        <div className="overflow-y-auto h-full">
           {taskLists?.map((taskList) => (
             <div key={taskList.id}>
               <TaskListItem taskList={taskList}></TaskListItem>

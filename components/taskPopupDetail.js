@@ -58,6 +58,14 @@ const TaskPopupDetail = (props) => {
     );
   };
 
+  const handleAddTaskToMyDay = async (event) => {
+    event.stopPropagation();
+    await updateTask(
+      { id: props?.task?.id, isInMyDay: !props?.task?.isInMyDay },
+      ctx
+    );
+  };
+
   return (
     <div className="relative">
       <div className="bg-slate-900 w-full h-full max-w-[30rem] p-6">
@@ -92,10 +100,12 @@ const TaskPopupDetail = (props) => {
             </div>
           </div>
           {/* button to add task */}
-          <div className="bg-neutral-600 p-7 min-h-[4rem] w-full flex rounded-md gap-10">
-            <div className="flex items-center">✨</div>
-            <div className="flex items-center text-white">Add To My Day</div>
-          </div>
+          <button onClick={handleAddTaskToMyDay}>
+            <div className="bg-neutral-600 p-7 min-h-[4rem] w-full flex rounded-md gap-10">
+              <div className="flex items-center">✨</div>
+              <div className="flex items-center text-white">Add To My Day</div>
+            </div>
+          </button>
           {/* note area */}
           <textarea
             className="bg-slate-500 text-neutral-300 rounded-md resize-none border-none placeholder:text-slate-400"
